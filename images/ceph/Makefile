@@ -17,17 +17,22 @@ include ../image.mk
 # ====================================================================================
 # Image Build Options
 
-CEPH_VERSION = v14.2.6-20200115
-BASEIMAGE = ceph/ceph-$(GOARCH):$(CEPH_VERSION)
+CEPH_VERSION = v14.2.4
+BASEIMAGE = pyletime/ceph-$(GOARCH):$(CEPH_VERSION)
 CEPH_IMAGE = $(BUILD_REGISTRY)/ceph-$(GOARCH)
 OPERATOR_SDK_VERSION = v0.10.0
 GOHOST := GOOS=$(GOHOSTOS) GOARCH=$(GOHOSTARCH) go
+TINI_ARCH = $(GOARCH)
 
 TEMP := $(shell mktemp -d)
 
 ifeq ($(HOST_PLATFORM),linux_amd64)
 OPERATOR_SDK_PLATFORM = x86_64-linux-gnu
 INCLUDE_CSV_TEMPLATES = true
+endif
+
+ifeq ($(TINI_ARCH),arm)
+TINI_ARCH = armhf
 endif
 
 OPERATOR_SDK := $(TOOLS_HOST_DIR)/operator-sdk-$(OPERATOR_SDK_VERSION)
@@ -51,7 +56,7 @@ do.build: generate-csv-ceph-templates
 	fi
 	@cd $(TEMP) && $(SED_CMD) 's|BASEIMAGE|$(BASEIMAGE)|g' Dockerfile
 	@$(DOCKERCMD) build $(BUILD_ARGS) \
-		--build-arg ARCH=$(GOARCH) \
+		--build-arg ARCH=$(TINI_ARCH) \
 		--build-arg TINI_VERSION=$(TINI_VERSION) \
 		-t $(CEPH_IMAGE) \
 		$(TEMP)
