@@ -37,6 +37,9 @@ OSBASEIMAGE = $(OSBASE)
 else ifeq ($(GOARCH),arm64)
 PLATFORM_ARCH = aarch64
 OSBASEIMAGE = arm64v8/$(OSBASE)
+else ifeq ($(GOARCH),arm)
+PLATFORM_ARCH = aarch64
+OSBASEIMAGE = arm32v7/$(OSBASE)
 else
 $(error Unknown go architecture $(GOARCH))
 endif
