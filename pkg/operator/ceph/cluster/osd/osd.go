@@ -68,7 +68,7 @@ const (
 	serviceAccountName                  = "rook-ceph-osd"
 	unknownID                           = -1
 	portableKey                         = "portable"
-	cephOsdPodMinimumMemory      uint64 = 2048 // minimum amount of memory in MB to run the pod
+	cephOsdPodMinimumMemory      uint64 = 1024 // minimum amount of memory in MB to run the pod
 	bluestorePVCMetadata                = "metadata"
 	bluestorePVCBlock                   = "data"
 )

@@ -84,7 +84,7 @@ const (
 	DefaultMsgr2Port int32 = 3300
 
 	// minimum amount of memory in MB to run the pod
-	cephMonPodMinimumMemory uint64 = 1024
+	cephMonPodMinimumMemory uint64 = 256
 
 	// default storage request size for ceph monitor pvc
 	// https://docs.ceph.com/docs/master/start/hardware-recommendations/#monitors-and-managers-ceph-mon-and-ceph-mgr
