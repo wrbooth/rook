@@ -86,6 +86,12 @@ METADATA_DEVICE="$%s"
 if [[ "$CV_MODE" == "lvm" ]]; then
 	TMP_DIR=$(mktemp -d)
 
+	# ensure all logical volumes are active
+	LVS=$(lvdisplay | grep 'LV Path' | awk '{print $3;}')
+	for lv in LVS; do
+		lvchange -ay $lv
+	done
+
 	# activate osd
 	ceph-volume "$CV_MODE" activate --no-systemd "$OSD_STORE_FLAG" "$OSD_ID" "$OSD_UUID"
 
