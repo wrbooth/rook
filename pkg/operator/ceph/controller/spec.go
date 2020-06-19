@@ -485,7 +485,7 @@ func GenerateLivenessProbeExecDaemon(daemonType, daemonID string) *v1.Probe {
 				},
 			},
 		},
-		InitialDelaySeconds: 10,
+		InitialDelaySeconds: 30,
 	}
 }
 
