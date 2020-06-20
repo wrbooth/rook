@@ -88,7 +88,7 @@ if [[ "$CV_MODE" == "lvm" ]]; then
 
 	# ensure all logical volumes are active
 	LVS=$(lvdisplay | grep 'LV Path' | awk '{print $3;}')
-	for lv in LVS; do
+	for lv in $LVS; do
 		lvchange -ay $lv
 	done
 
